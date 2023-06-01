@@ -1,0 +1,162 @@
+body{
+    overflow-y: hidden; 
+    overflow-x: hidden;
+    margin: 0;
+    max-height: 100%;
+}
+
+.game-container {
+    height: 100%;
+    overflow-y: hidden; 
+    overflow-x: hidden;
+}
+
+#pasto1{
+    background: url("../img/parallax/0.png") repeat-x;
+    bottom: 0px;
+    height: 200px;
+    z-index: 0;
+    animation:mover-fondo 30s linear infinite;
+}
+#piso{
+    background: url("../img/parallax/2.png") repeat-x;
+    bottom: 05px;
+    height: 700px;
+    z-index: -1;
+    animation: mover-fondo 20s linear infinite;
+}
+#arbustos{
+    background: url("../img/parallax/3.png") repeat-x;
+    bottom: 50px;
+    height: 600px;
+    z-index: -2;
+    animation: mover-fondo 30s linear infinite;
+}
+#near-mountains{
+    background: url("../img/parallax/5.png") repeat-x;
+    bottom: 0px;
+    height: 700px;
+    z-index: -3;
+    animation: mover-fondo 60s linear infinite;
+}
+
+#far-mountains{
+    background: url("../img/parallax/4.png") repeat-x;
+    bottom: 0px;
+    height: 600px;
+    z-index: -4;
+    animation: mover-fondo 40s linear infinite;
+}
+
+.hide {
+    display: none
+}
+
+#cielo{
+    background: url("../img/parallax/6.png") repeat-x;
+    bottom: 200px;
+    height:800px;
+    z-index: -5;
+    animation: mover-fondo 60s linear infinite;
+}
+#pasto1, #piso, #arbustos, #near-mountains, #cielo{
+    background-size: 2500px 100%;
+    position: absolute;
+    width: 100%;
+}
+
+.player{
+    position: absolute;
+    bottom: 70px;
+    left: 300px;
+    width: 256px;
+    height: 256px;
+    background-image: url(../img/zombie/zombie.png);
+    z-index: 0;
+}
+
+.enemy{
+    position: absolute;
+    bottom: 70px;
+    left: 300px;
+    width: 256px;
+    height: 256px;
+    background-image: url(../img/zombie/enemy.png);
+    z-index: 0;
+}
+
+.enemy2{
+    position: absolute;
+    bottom: 70px;
+    left: 300px;
+    width: 256px;
+    height: 256px;
+    background-image: url(../img/zombie/enemy2.png);
+    z-index: 0;
+}
+
+.run{
+    animation: zombie-run 0.8s steps(6) infinite;
+}
+
+.jump {
+    animation: zombie-jump 800ms cubic-bezier(0, 0, .5, 1) forwards;
+}
+
+.fall {
+    animation: zombie-fall 600ms cubic-bezier(0, 0, .5, 1) forwards;
+}
+
+@keyframes enemy {
+    from { left: 100%; }
+   to { left: -400px; }
+}
+
+#menu-game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#start-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+
+@keyframes enemy-run {
+    from { background-position: position 0px;}
+    to {background-position:3500px;}
+}
+
+@keyframes enemy2-run {
+    from { background-position: position 0px;}
+    to {background-position:4000px;}
+}
+
+@keyframes mover-fondo {
+    from {background-position-x: 0px;}
+    to {background-position-x: -700px;}
+} 
+
+@keyframes zombie-run {    
+    from {background-position: 0px;}
+    to {background-position: -1650px;}
+}
+
+
+@keyframes zombie-jump {
+    from { bottom: 70px; }
+    to { bottom: 50%; }
+}
+
+@keyframes zombie-fall {
+    from { bottom: 50%; }
+    to { bottom: 70px; }
+}
