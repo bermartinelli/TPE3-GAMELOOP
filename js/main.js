@@ -5,14 +5,14 @@ let MainMenu = document.querySelector(".start-menu");
 let InstructionsMenu = document.querySelector(".instructions-menu");
 let container = document.querySelector(".game-container");
 let botonReiniciar = document.querySelector(".reiniciar-button");
-let botonJugar = document.getElementById("start");
+let botonJugar = document.querySelectorAll(".startGame");
 let gameOverMenu =  document.getElementById('menu-game-over');
 let divOcultar = document.getElementById("ocultar");
 
 let instrucciones = document.getElementById("instrucciones");
 let startButtons = document.getElementById("start-buttons");
 let scoreButtons = document.getElementById("scores");
-botonInstrucciones = document.getElementById("instructions");
+let botonInstrucciones = document.getElementById("instructions");
 
 let divZombie = document.getElementById("player");
 
@@ -60,6 +60,7 @@ function runGame() {
 
     score = 0;
     timer = 0;
+    vidas = 5;
 
     instrucciones.classList.add('hide');
     startButtons.classList.add('hide');
@@ -113,7 +114,7 @@ function gameLoop() {
     score += 1;
     document.getElementById('score').innerText = `Puntos: ${score}`;
 
-    document.getElementById('vidas').innerText = `VIDAS: ${vidas}`;
+    document.getElementById('nroVidas').innerText = `      ${vidas}`;
   }
 
 
@@ -252,17 +253,21 @@ prizeLeg = new prizeBody();
 prizes.push(prizeLeg);
 }
 
-
 botonInstrucciones.addEventListener('click', () =>{
+  
+    startButtons.classList.add('hide');
     instrucciones.classList.remove('hide');
+
   })
 
+  for (let boton of botonJugar) {
+    boton.addEventListener('click', () =>{
+      gameOverMenu.style.display = 'none';
+      divZombie.style.display = 'inline';
+      runGame();
+    })
+  }
 
-botonJugar.addEventListener('click', () =>{
-    gameOverMenu.style.display = 'none';
-    divZombie.style.display = 'inline';
-    runGame();
-  })
 
 botonReiniciar.addEventListener('click', () =>{
     

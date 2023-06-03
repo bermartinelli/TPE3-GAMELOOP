@@ -1,10 +1,43 @@
+
+
+
+
 body{
+    
+    font-family: 'Rowdies', cursive;
     overflow-y: hidden; 
     overflow-x: hidden;
     margin: 0;
     max-height: 100%;
 }
 
+#scores {
+    border-radius: 30%;
+    padding: 5px;
+    width: 150px;
+    text-align: center;
+   
+    text-decoration: rgba(255, 242, 242, 0.728);
+    font-size: larger;
+}
+
+#nroVidas {
+    font-size: 50px;
+    color: aliceblue;
+    border-color: black;
+    text-shadow: 4cm;
+    -webkit-text-stroke: 2px;
+    -webkit-text-stroke-color: black;
+    stroke: black;
+}
+
+.titulo {
+    font-size: 100px;
+}
+
+#instrucciones {
+    text-align: center;
+}
 .game-container {
     height: 100%;
     overflow-y: hidden; 
