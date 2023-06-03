@@ -26,7 +26,9 @@ class Enemy2 extends GameObject{
         let enemyStatus = this.status();
 
         if(zombieStatus.right > enemyStatus.left + 100  && zombieStatus.left < enemyStatus.right - 100 && zombieStatus.bottom > enemyStatus.top + 100  && zombieStatus.top < enemyStatus.bottom){
-           return true;
+           
+
+            return true;
        } else{
            return false;
       }

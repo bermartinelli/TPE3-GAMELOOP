@@ -28,7 +28,9 @@ class Enemy extends GameObject{
         let enemyStatus = this.status();
          //la cordenada 0.0 es arriba a la izquerda
         if(zombieStatus.right > enemyStatus.left + 150  && zombieStatus.left < enemyStatus.right - 150 && zombieStatus.bottom > enemyStatus.top + 150 && zombieStatus.top < enemyStatus.bottom){
-           return true;
+           
+
+            return true;
        } else{
            return false;
       }

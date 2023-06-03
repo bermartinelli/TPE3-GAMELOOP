@@ -19,20 +19,21 @@ let divZombie = document.getElementById("player");
 let zombie = new Zombie();
 let enemy =null;
 let enemy2= null;
-
 let prizeLeg = null;
 
 let enemies = [];
 let enemies2 = [];
 let prizes=[];
 
-let huboChoque = false;
+let huboChoqueEnemigo = false;
+let huboChoquePrize = false;
 
 let score = 0;
 let timer = 0;
+let vidas = 5
 
 let enemyFlag = false;
-let foodFlag = false;
+let PrizeFlag = false;
 
 let in_game = false;
 let game_over = false;
@@ -68,11 +69,15 @@ function runGame() {
 
     intervaloNewEnemy = setInterval(() => {
         newEnemy();
-    }, periodoEnemigo);
+    }, 5000);
+
+    intervaloNewEnemy = setInterval(() => {
+      newEnemy2();
+  }, 5000);
 
     intervaloNewPrize = setInterval(() => {
       newPrize();
-  }, getBetween(5000 , 8000));
+  }, getBetween(9000 , 12000));
 
     huboChoque = false;
 
@@ -107,30 +112,79 @@ function gameLoop() {
     document.getElementById('timer').innerText = `Tiempo: ${Math.floor(timer)}`;
     score += 1;
     document.getElementById('score').innerText = `Puntos: ${score}`;
+
+    document.getElementById('vidas').innerText = `VIDAS: ${vidas}`;
   }
 
 
   function refresh_status() {
 
-    chequearChoques();
+    chequearChoquesEnemigos();
 
-    if(huboChoque) {
-        in_game = false;
-    }
+    chequearChoquesPrizes();
+    
   }
 
-  function chequearChoques(){
-      if(enemy || enemy2) {
-        let choque1 = enemy.checkCollision(zombie);
-        let choque2 = enemy2.checkCollision(zombie);
+  function chequearChoquesPrizes(){
 
-        if(choque1 || choque2) {
-          huboChoque = true;
-        }
+    if(prizeLeg) {
+      let choquePrize1 = prizeLeg.checkCollision(zombie);
+  
+      if(choquePrize1) {
+        PrizeFlag =true;
+        divOcultar.removeChild(prizeLeg.getPrizeBody());
+      } else {
+        PrizeFlag = false;
+        huboChoquePrize = false;
+      }
       }
 
+    if(PrizeFlag) {
+
+      if(!huboChoquePrize) {
+        vidas++;
+        huboChoquePrize = true;
+        console.log("llego aca");
+        
+      }
+    }
+
+
   }
 
+  function chequearChoquesEnemigos(){
+     
+    if(enemy || enemy2) {
+        let choque1 = enemy.checkCollision(zombie);
+        let choque2 = enemy2.checkCollision(zombie);
+        
+        if(choque1 || choque2) {
+          enemyFlag = true;
+        } else {
+          enemyFlag = false;
+          huboChoqueEnemigo = false;
+        }
+      
+      }
+    
+    if(enemyFlag) {
+
+      if(!huboChoqueEnemigo) {
+        console.log("holassss");
+
+        perderVida();
+        huboChoqueEnemigo=true;
+      }
+    }
+
+  
+  }
+
+  function perderVida() {
+      if(vidas == 1) {
+        in_game = false;
+      } else vidas--
+  }
 
 function limpiarContainer(){
     let divEnemy = document.querySelector(".enemy");
@@ -158,7 +212,7 @@ function endGame() {
 function getBetween(a, b) {
   number = a + (b - a) * Math.random(); //agarra numero entre a y b
 
-  return number;
+  return Math.round(number);
 }
 
 function newEnemy(){
@@ -170,12 +224,24 @@ function newEnemy(){
     newEnemy();
 }, timeBetween);
   
-console.log("Hasta aca");
-enemy2 = new Enemy2();
-enemies2.push(enemy2);
 
 enemy = new Enemy();
 enemies.push(enemy);
+
+}
+
+function newEnemy2(){
+
+  timeBetween = getBetween(tiempoEnemigosA,tiempoEnemigosB);
+  
+  clearInterval(intervaloEnemigo)
+  intervaloEnemigo = setInterval(() => {
+    newEnemy2();
+}, timeBetween);
+  
+
+enemy2 = new Enemy2();
+enemies2.push(enemy2);
 
 }
 
@@ -184,8 +250,6 @@ function newPrize(){
 console.log("Hasta aca");
 prizeLeg = new prizeBody();
 prizes.push(prizeLeg);
-
-
 }
 
 

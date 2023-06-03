@@ -6,13 +6,13 @@ class  prizeBody extends GameObject{
         this.prizeBody.setAttribute("class", "prizeBody");
         this.velocidad = velocidad;
         
-        this.enemy.style.animation = `enemy 9s forwards linear`;
+        this.prizeBody.style.animation = `enemy 9s forwards linear`;
         document.querySelector("#ocultar").appendChild(this.prizeBody);
     }
 
     //, enemy-run 1s steps(6) infinite
 
-    getprizeBody(){
+    getPrizeBody(){
         return this.prizeBody;
     }
 
