@@ -8,7 +8,7 @@ class Enemy2 extends GameObject{
         this.muerto = false;
         this.velocidad = velocidad;
         
-        this.enemy2.style.animation = `enemy 2s forwards linear`;
+        this.enemy2.style.animation = `enemy 2s forwards linear, enemy-run 1s steps(6) infinite`;
         document.querySelector("#ocultar").appendChild(this.enemy2);
         
     }

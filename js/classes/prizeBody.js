@@ -6,7 +6,7 @@ class  prizeBody extends GameObject{
         this.prizeBody.setAttribute("class", "prizeBody");
         this.velocidad = velocidad;
         
-        this.prizeBody.style.animation = `enemy 9s forwards linear`;
+        this.prizeBody.style.animation = `enemy 9s forwards linear, rotar-div 4s linear infinite`;
         document.querySelector("#ocultar").appendChild(this.prizeBody);
     }
 
@@ -25,7 +25,7 @@ class  prizeBody extends GameObject{
         let zombieStatus = zombie.status();
         let prizeBodyStatus = this.status();
          //la cordenada 0.0 es arriba a la izquerda
-        if(zombieStatus.right >  prizeBodyStatus.left  && zombieStatus.left < prizeBodyStatus.right && zombieStatus.bottom > prizeBodyStatus.top  && zombieStatus.top < prizeBodyStatus.bottom){
+        if(zombieStatus.right >  prizeBodyStatus.left + 100 && zombieStatus.left < prizeBodyStatus.right - 100 && zombieStatus.bottom > prizeBodyStatus.top  && zombieStatus.top < prizeBodyStatus.bottom){
            return true;
        } else{
            return false;

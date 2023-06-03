@@ -8,11 +8,11 @@ class Enemy extends GameObject{
         this.muerto = false;
         this.velocidad = velocidad;
         
-        this.enemy.style.animation = `enemy 5s forwards linear`;
+        this.enemy.style.animation = `enemy 5s forwards linear, enemy-run 1s steps(6) infinite`;
         document.querySelector("#ocultar").appendChild(this.enemy);
     }
 
-    //, enemy-run 1s steps(6) infinite
+    //
 
     getEnemy(){
         return this.enemy;

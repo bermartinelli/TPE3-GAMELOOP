@@ -68,7 +68,7 @@ body{
 .player{
     position: absolute;
     bottom: 70px;
-    left: 300px;
+    left: 200px;
     width: 256px;
     height: 256px;
     background-image: url(../img/zombie/zombie.png);
@@ -103,12 +103,12 @@ body{
     height: 50px;
     background-image: url(../img/prizes/body.png);
     z-index: 0;
-
+    
 }
 
 
 .run{
-    animation: zombie-run 0.8s steps(6) infinite;
+    animation: zombie-run 1s steps(6) infinite;
 }
 
 .jump {
@@ -143,13 +143,13 @@ body{
 
 
 @keyframes enemy-run {
-    from { background-position: position 0px;}
-    to {background-position:3500px;}
+    from { background-position-x: position 0px;}
+    to {background-position-x:-1093px;}
 }
 
 @keyframes enemy2-run {
-    from { background-position: position 0px;}
-    to {background-position:3500px;}
+    from { background-position-x: position 0px;}
+    to {background-position-x:1073px;}
 }
 
 @keyframes mover-fondo {
@@ -171,4 +171,9 @@ body{
 @keyframes zombie-fall {
     from { bottom: 50%; }
     to { bottom: 70px; }
+}
+
+@keyframes rotar-div {
+    from {transform: rotate(0deg);}
+      to {transform: rotate(359deg);}
 }
