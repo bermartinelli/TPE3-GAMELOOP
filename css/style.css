@@ -77,34 +77,46 @@ body{
 
 .enemy{
     position: absolute;
-    bottom: 70px;
+    bottom: 50px;
     left: 300px;
-    width: 256px;
-    height: 256px;
+    width: 182.16px;
+    height: 200px;
     background-image: url(../img/zombie/enemy.png);
     z-index: 0;
 }
 
 .enemy2{
     position: absolute;
-    bottom: 70px;
+    bottom: 50px;
     left: 300px;
-    width: 256px;
-    height: 256px;
+    width: 178px;
+    height: 200px;
     background-image: url(../img/zombie/enemy2.png);
     z-index: 0;
 }
+
+.prizeBody{
+    position: absolute;
+    bottom: 400px;
+    left: 300px;
+    width: 178px;
+    height: 200px;
+    background-image: url(../img/prizes/body.png);
+    z-index: 0;
+
+}
+
 
 .run{
     animation: zombie-run 0.8s steps(6) infinite;
 }
 
 .jump {
-    animation: zombie-jump 800ms cubic-bezier(0, 0, .5, 1) forwards;
+    animation: zombie-jump 500ms cubic-bezier(0, 0, .5, 1) forwards;
 }
 
 .fall {
-    animation: zombie-fall 600ms cubic-bezier(0, 0, .5, 1) forwards;
+    animation: zombie-fall 300ms cubic-bezier(0, 0, .5, 1) forwards;
 }
 
 @keyframes enemy {
@@ -137,7 +149,7 @@ body{
 
 @keyframes enemy2-run {
     from { background-position: position 0px;}
-    to {background-position:4000px;}
+    to {background-position:3500px;}
 }
 
 @keyframes mover-fondo {
