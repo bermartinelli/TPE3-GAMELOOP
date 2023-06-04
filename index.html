@@ -22,6 +22,9 @@
             <button id="instructions">INSTRUCCIONES</button>
         </div>
 
+        <div id="playerQuieto"></div>
+
+
         <div id="scores" class="hide">
         <div id="score">Puntos: 0</div>
         <div id="timer">Tiempo: 0</div>
@@ -52,14 +55,21 @@
       <h1 class="titulo">ZOMBIE ATTACK!</h1>
       <p>ESQUIVA A LOS ENEMIGOS MIENTRAS TE ALIMENTAS DE SUS PARTES</p>
       <p>Usa la barra espaciadora para saltar y esquivarlos, atrapa sus partes para sumar vidas</p>
+      <p>tenes 60 segundos para sumar la mayor cantidad de puntos</p>
+      <p>A JUGAR!</p>
+
       <button class="startGame">JUGAR</button>
       </div>
 
     <div id="menu-game-over">
-        <h1>HAS PERDIDO!</h1>
+        <h1>FIN DE JUEGO!</h1>
+        <h2>PUNTAJE:</h2>
+        <h2 id="puntaje"></h2>
         <button class="reiniciar-button">REINICIAR</button>
       </div>
     </div>
+
+    
 
     <script src="js/classes/GameManager.js"></script>
     <script src="js/classes/GameObject.js"></script>

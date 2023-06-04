@@ -8,6 +8,8 @@ let botonReiniciar = document.querySelector(".reiniciar-button");
 let botonJugar = document.querySelectorAll(".startGame");
 let gameOverMenu =  document.getElementById('menu-game-over');
 let divOcultar = document.getElementById("ocultar");
+let playerQuieto = document.getElementById("playerQuieto");
+let puntajeFinal = document.getElementById("puntaje");
 
 let instrucciones = document.getElementById("instrucciones");
 let startButtons = document.getElementById("start-buttons");
@@ -28,9 +30,10 @@ let prizes=[];
 let huboChoqueEnemigo = false;
 let huboChoquePrize = false;
 
-let score = 0;
-let timer = 0;
-let vidas = 5
+let score = null;
+let timer = null;
+let vidas = 5;
+
 
 let enemyFlag = false;
 let PrizeFlag = false;
@@ -46,12 +49,12 @@ let periodoPrize = 9 * 1000;
 
 let tiempoEnemigosA = 2 *1000; //2 segundos
 let tiempoEnemigosB= 5 *1000;  // 5 segundos
-let rangoTiempoEnemigo;
+
+lifeSound = new Audio('sounds/vida.wav');
+introSound = new Audio('sounds/intro.wav');
+buttonSound = new Audio('sounds/mixkit-player-select-notification-2037.mp3');
 
 
-
-
-let colisionEnemy = false;
 
 
 
@@ -59,14 +62,16 @@ let colisionEnemy = false;
 function runGame() {
 
     score = 0;
-    timer = 0;
+    timer = 60;
     vidas = 5;
 
     instrucciones.classList.add('hide');
     startButtons.classList.add('hide');
+    playerQuieto.classList.add('hide');
     scoreButtons.classList.remove('hide');
     divOcultar.classList.remove('hide');
-
+    zombie.run();
+    introSound.pause();
 
     intervaloNewEnemy = setInterval(() => {
         newEnemy();
@@ -79,6 +84,14 @@ function runGame() {
     intervaloNewPrize = setInterval(() => {
       newPrize();
   }, getBetween(9000 , 12000));
+
+
+    intervaloSegundos = setInterval(() => {
+      if(timer != 0) {
+      timer--;
+      score = score + 100;
+    }
+  }, 1000);
 
     huboChoque = false;
 
@@ -99,28 +112,33 @@ function gameLoop() {
     //rendering();
 
 
-    //aca vendria la logica de que si se queda sin puntos mandar el game over con
-    //in_game=false
-    //score= 0;
-  
+
     if (in_game) {
       requestAnimationFrame(gameLoop);
     } else if (!in_game) {
+      zombie.ko();
+      setTimeout(() => {
         endGame();
+      }, 5000);
     }
 
-    timer = 0.00;
+  
     document.getElementById('timer').innerText = `Tiempo: ${Math.floor(timer)}`;
-    score += 1;
     document.getElementById('score').innerText = `Puntos: ${score}`;
 
+    if(vidas>=1) {
     document.getElementById('nroVidas').innerText = `      ${vidas}`;
+    } else{
+    document.getElementById('nroVidas').innerText = ` CERO `;
+    }
   }
 
 
   function refresh_status() {
 
     chequearChoquesEnemigos();
+
+    chequearTimer();
 
     chequearChoquesPrizes();
     
@@ -143,13 +161,21 @@ function gameLoop() {
     if(PrizeFlag) {
 
       if(!huboChoquePrize) {
+        score = score + 500;
         vidas++;
+        lifeSound.play();
         huboChoquePrize = true;
-        console.log("llego aca");
         
       }
     }
 
+
+  }
+
+  function chequearTimer(){
+    if(timer==0) {
+        endGame();
+    }
 
   }
 
@@ -171,8 +197,6 @@ function gameLoop() {
     if(enemyFlag) {
 
       if(!huboChoqueEnemigo) {
-        console.log("holassss");
-
         perderVida();
         huboChoqueEnemigo=true;
       }
@@ -182,33 +206,51 @@ function gameLoop() {
   }
 
   function perderVida() {
+
+      zombie.herido();
       if(vidas == 1) {
         in_game = false;
-      } else vidas--
+        score = score - 300;
+        vidas--
+      } else {
+        score = score - 300;
+        vidas--
+      }
   }
 
 function limpiarContainer(){
     let divEnemy = document.querySelector(".enemy");
     let divEnemy2 = document.querySelector(".enemy2");
 
-
+  if(enemy || enemy2) {
    divEnemy.style.display = 'none';
    divEnemy2.style.display = 'none';
-
+  }
 }
+
 function endGame() {
    
   scoreButtons.classList.add('hide');
   divOcultar.classList.add('hide');
+  introSound.load();
+  introSound.play();
   limpiarContainer();
   clearInterval(intervaloNewEnemy);
 
+  let puntos = score + vidas*300;
+  puntajeFinal.innerHTML =  `      ${puntos}`;
+
+  if(timer==0 && vidas != 0) {
+    playerQuieto.classList.remove('hide');
+  }
 
   gameOverMenu.style.display = 'block';
 
   score = 0;
   timer = 0;
 }
+
+
 
 function getBetween(a, b) {
   number = a + (b - a) * Math.random(); //agarra numero entre a y b
@@ -247,14 +289,14 @@ enemies2.push(enemy2);
 }
 
 function newPrize(){
-  
-console.log("Hasta aca");
+
 prizeLeg = new prizeBody();
 prizes.push(prizeLeg);
 }
 
 botonInstrucciones.addEventListener('click', () =>{
-  
+
+    buttonSound.play();
     startButtons.classList.add('hide');
     instrucciones.classList.remove('hide');
 
@@ -262,6 +304,7 @@ botonInstrucciones.addEventListener('click', () =>{
 
   for (let boton of botonJugar) {
     boton.addEventListener('click', () =>{
+      buttonSound.play();
       gameOverMenu.style.display = 'none';
       divZombie.style.display = 'inline';
       runGame();
@@ -269,26 +312,28 @@ botonInstrucciones.addEventListener('click', () =>{
   }
 
 
+
 botonReiniciar.addEventListener('click', () =>{
     
-    gameOverMenu.style.display = 'none';
-    divOcultar.classList.remove('hide');
+  buttonSound.play();
+  gameOverMenu.style.display = 'none';
+  divOcultar.classList.remove('hide');
 
-    clearInterval(intervaloNewEnemy);
-    clearInterval(intervaloEnemigo);
-    
-    enemies.forEach(enemy => {
-      divOcultar.removeChild(enemy.getEnemy());
-    });
-    
-    enemies2.forEach(enemy2 => {
-      divOcultar.removeChild(enemy2.getEnemy2());
-    });
+  clearInterval(intervaloNewEnemy);
+  clearInterval(intervaloEnemigo);
   
-    enemies = [];
-    enemies2 = [];
+  enemies.forEach(enemy => {
+    divOcultar.removeChild(enemy.getEnemy());
+  });
+  
+  enemies2.forEach(enemy2 => {
+    divOcultar.removeChild(enemy2.getEnemy2());
+  });
 
-    runGame();
-  })
+  enemies = [];
+  enemies2 = [];
+
+  runGame();
+})
 
 

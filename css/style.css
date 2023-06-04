@@ -11,9 +11,33 @@ body{
     max-height: 100%;
 }
 
+button {
+    background-color: #555555;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+
+  button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+  }
+  
+    
+
 #scores {
     border-radius: 30%;
     padding: 5px;
+    margin-right: 60px;
+    margin-top: 20px;
     width: 150px;
     text-align: center;
    
@@ -21,10 +45,15 @@ body{
     font-size: larger;
 }
 
+#vidas {
+    margin-top: 20px;
+}
+
 #nroVidas {
     font-size: 50px;
     color: aliceblue;
     border-color: black;
+
     text-shadow: 4cm;
     -webkit-text-stroke: 2px;
     -webkit-text-stroke-color: black;
@@ -101,11 +130,138 @@ body{
 .player{
     position: absolute;
     bottom: 70px;
-    left: 200px;
-    width: 256px;
-    height: 256px;
-    background-image: url(../img/zombie/zombie.png);
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/run.png);
     z-index: 0;
+}
+
+
+.run{
+    animation: zombie-run 1s steps(10) infinite;
+}
+
+@keyframes zombie-run {    
+    from {background-position: 0px;}
+    to {background-position: -1647px;}
+}
+
+
+#playerQuieto{
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/quieto.png);
+    z-index: 0;
+    animation: zombie-quieto 2s steps(10) infinite;
+}
+
+
+
+.quieto {
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/quieto.png);
+    z-index: 0;
+    animation: zombie-quieto 2s steps(10) infinite;
+}
+
+@keyframes zombie-quieto{
+    from {background-position: 0px;}
+    to {background-position: -1647px;}
+}
+
+.herido{
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/herido.png);
+    z-index: 0;
+    animation: zombie-herido 300ms steps(10) infinite;
+}
+
+@keyframes zombie-herido {
+    from {background-position: 0px;}
+    to {background-position: -1647px;}
+}
+
+.ko{
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/ko.png);
+    z-index: 0;
+    animation: zombie-ko 500ms steps(9) infinite;
+}
+
+@keyframes zombie-ko {
+    from {background-position: 0px;}
+    to {background-position: -1562px;}
+}
+
+.dead{
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/dead.png);
+    z-index: 0;
+    animation: zombie-herido 1000ms steps(10) infinite;
+}
+
+
+.jump{
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/up.png);
+    z-index: 0;
+    animation: zombie-up 1s steps(10) infinite, zombie-jump 500ms cubic-bezier(0, 0, .5, 1) forwards;;
+}
+
+@keyframes zombie-up {
+    from {background-position: 0px;}
+    to {background-position: -1647px;}
+}
+
+@keyframes zombie-jump {
+    from { bottom: 70px; }
+    to { bottom: 50%; }
+}
+
+
+.fall{
+    position: absolute;
+    bottom: 70px;
+    left: 100px;
+    width: 164px;
+    height: 151px;
+    background-image: url(../img/estados/down.png);
+    z-index: 0;
+    animation: zombie-fall 300ms cubic-bezier(0, 0, .5, 1) forwards, zombie-down 1s steps(10) infinite;
+}
+
+@keyframes zombie-down {
+    from {background-position: 0px;}
+    to {background-position: -1647px;}
+}
+
+@keyframes zombie-fall {
+    from { bottom: 50%; }
+    to { bottom: 70px; }
 }
 
 .enemy{
@@ -140,17 +296,7 @@ body{
 }
 
 
-.run{
-    animation: zombie-run 1s steps(6) infinite;
-}
 
-.jump {
-    animation: zombie-jump 500ms cubic-bezier(0, 0, .5, 1) forwards;
-}
-
-.fall {
-    animation: zombie-fall 300ms cubic-bezier(0, 0, .5, 1) forwards;
-}
 
 @keyframes enemy {
     from { left: 100%; }
@@ -187,24 +333,13 @@ body{
 
 @keyframes mover-fondo {
     from {background-position-x: 0px;}
-    to {background-position-x: -700px;}
+    to {background-position-x: -5000px;}
 } 
 
-@keyframes zombie-run {    
-    from {background-position: 0px;}
-    to {background-position: -1650px;}
-}
 
 
-@keyframes zombie-jump {
-    from { bottom: 70px; }
-    to { bottom: 50%; }
-}
 
-@keyframes zombie-fall {
-    from { bottom: 50%; }
-    to { bottom: 70px; }
-}
+
 
 @keyframes rotar-div {
     from {transform: rotate(0deg);}
